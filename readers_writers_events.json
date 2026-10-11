@@ -1,0 +1,122 @@
+[
+    {
+        "time": 1791571426.621,
+        "process": "Writer 1",
+        "state": "Waiting",
+        "message": "Waiting to write"
+    },
+    {
+        "time": 1791571426.621,
+        "process": "Writer 1",
+        "state": "Writing",
+        "message": "Entered the writing section"
+    },
+    {
+        "time": 1791571426.723,
+        "process": "Writer 2",
+        "state": "Waiting",
+        "message": "Waiting to write"
+    },
+    {
+        "time": 1791571426.824,
+        "process": "Reader 2",
+        "state": "Waiting",
+        "message": "Waiting to read"
+    },
+    {
+        "time": 1791571426.924,
+        "process": "Reader 3",
+        "state": "Waiting",
+        "message": "Waiting to read"
+    },
+    {
+        "time": 1791571427.025,
+        "process": "Reader 1",
+        "state": "Waiting",
+        "message": "Waiting to read"
+    },
+    {
+        "time": 1791571427.526,
+        "process": "Writer 1",
+        "state": "Writing",
+        "message": "Updated shared data: Data updated by Writer 1"
+    },
+    {
+        "time": 1791571427.526,
+        "process": "Writer 1",
+        "state": "Finished",
+        "message": "Finished writing"
+    },
+    {
+        "time": 1791571427.527,
+        "process": "Writer 2",
+        "state": "Writing",
+        "message": "Entered the writing section"
+    },
+    {
+        "time": 1791571428.398,
+        "process": "Writer 2",
+        "state": "Writing",
+        "message": "Updated shared data: Data updated by Writer 2"
+    },
+    {
+        "time": 1791571428.398,
+        "process": "Writer 2",
+        "state": "Finished",
+        "message": "Finished writing"
+    },
+    {
+        "time": 1791571428.399,
+        "process": "Reader 2",
+        "state": "Reading",
+        "message": "Entered the reading section"
+    },
+    {
+        "time": 1791571428.399,
+        "process": "Reader 3",
+        "state": "Reading",
+        "message": "Entered the reading section"
+    },
+    {
+        "time": 1791571428.399,
+        "process": "Reader 1",
+        "state": "Reading",
+        "message": "Entered the reading section"
+    },
+    {
+        "time": 1791571429.058,
+        "process": "Reader 2",
+        "state": "Reading",
+        "message": "Read shared data: Data updated by Writer 2"
+    },
+    {
+        "time": 1791571429.058,
+        "process": "Reader 2",
+        "state": "Finished",
+        "message": "Finished reading"
+    },
+    {
+        "time": 1791571429.239,
+        "process": "Reader 1",
+        "state": "Reading",
+        "message": "Read shared data: Data updated by Writer 2"
+    },
+    {
+        "time": 1791571429.239,
+        "process": "Reader 1",
+        "state": "Finished",
+        "message": "Finished reading"
+    },
+    {
+        "time": 1791571429.308,
+        "process": "Reader 3",
+        "state": "Reading",
+        "message": "Read shared data: Data updated by Writer 2"
+    },
+    {
+        "time": 1791571429.308,
+        "process": "Reader 3",
+        "state": "Finished",
+        "message": "Finished reading"
+    }
+]

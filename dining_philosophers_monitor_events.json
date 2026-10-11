@@ -1,0 +1,650 @@
+[
+    {
+        "time": 1791572376.557,
+        "philosopher": "P1",
+        "state": "Thinking",
+        "event": "Philosopher 1 is thinking (round 1)",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.557,
+        "philosopher": "P2",
+        "state": "Thinking",
+        "event": "Philosopher 2 is thinking (round 1)",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.557,
+        "philosopher": "P3",
+        "state": "Thinking",
+        "event": "Philosopher 3 is thinking (round 1)",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.557,
+        "philosopher": "P4",
+        "state": "Thinking",
+        "event": "Philosopher 4 is thinking (round 1)",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.699,
+        "philosopher": "P3",
+        "state": "Hungry",
+        "event": "Philosopher 3 wants to eat",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.699,
+        "philosopher": "P3",
+        "state": "Eating",
+        "event": "Philosopher 3 acquired both forks and started eating",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572376.703,
+        "philosopher": "P4",
+        "state": "Hungry",
+        "event": "Philosopher 4 wants to eat",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572376.703,
+        "philosopher": "P4",
+        "state": "Waiting",
+        "event": "Philosopher 4 waits for neighboring philosophers",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572376.836,
+        "philosopher": "P1",
+        "state": "Hungry",
+        "event": "Philosopher 1 wants to eat",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572376.836,
+        "philosopher": "P1",
+        "state": "Eating",
+        "event": "Philosopher 1 acquired both forks and started eating",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572376.924,
+        "philosopher": "P3",
+        "state": "Releasing",
+        "event": "Philosopher 3 is releasing both forks",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572376.924,
+        "philosopher": "P3",
+        "state": "Thinking",
+        "event": "Philosopher 3 finished eating and released both forks",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.924,
+        "philosopher": "P3",
+        "state": "Thinking",
+        "event": "Philosopher 3 is thinking (round 2)",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.924,
+        "philosopher": "P4",
+        "state": "Waiting",
+        "event": "Philosopher 4 waits for neighboring philosophers",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.952,
+        "philosopher": "P2",
+        "state": "Hungry",
+        "event": "Philosopher 2 wants to eat",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572376.952,
+        "philosopher": "P2",
+        "state": "Waiting",
+        "event": "Philosopher 2 waits for neighboring philosophers",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.081,
+        "philosopher": "P1",
+        "state": "Releasing",
+        "event": "Philosopher 1 is releasing both forks",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.081,
+        "philosopher": "P1",
+        "state": "Thinking",
+        "event": "Philosopher 1 finished eating and released both forks",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.081,
+        "philosopher": "P1",
+        "state": "Thinking",
+        "event": "Philosopher 1 is thinking (round 2)",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.081,
+        "philosopher": "P4",
+        "state": "Eating",
+        "event": "Philosopher 4 acquired both forks and started eating",
+        "forks": [
+            "F1: P4",
+            "F2: Free",
+            "F3: Free",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.081,
+        "philosopher": "P2",
+        "state": "Eating",
+        "event": "Philosopher 2 acquired both forks and started eating",
+        "forks": [
+            "F1: P4",
+            "F2: P2",
+            "F3: P2",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.14,
+        "philosopher": "P3",
+        "state": "Hungry",
+        "event": "Philosopher 3 wants to eat",
+        "forks": [
+            "F1: P4",
+            "F2: P2",
+            "F3: P2",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.14,
+        "philosopher": "P3",
+        "state": "Waiting",
+        "event": "Philosopher 3 waits for neighboring philosophers",
+        "forks": [
+            "F1: P4",
+            "F2: P2",
+            "F3: P2",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.449,
+        "philosopher": "P1",
+        "state": "Hungry",
+        "event": "Philosopher 1 wants to eat",
+        "forks": [
+            "F1: P4",
+            "F2: P2",
+            "F3: P2",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.449,
+        "philosopher": "P1",
+        "state": "Waiting",
+        "event": "Philosopher 1 waits for neighboring philosophers",
+        "forks": [
+            "F1: P4",
+            "F2: P2",
+            "F3: P2",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.519,
+        "philosopher": "P2",
+        "state": "Releasing",
+        "event": "Philosopher 2 is releasing both forks",
+        "forks": [
+            "F1: P4",
+            "F2: P2",
+            "F3: P2",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.519,
+        "philosopher": "P2",
+        "state": "Thinking",
+        "event": "Philosopher 2 finished eating and released both forks",
+        "forks": [
+            "F1: P4",
+            "F2: Free",
+            "F3: Free",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.519,
+        "philosopher": "P2",
+        "state": "Thinking",
+        "event": "Philosopher 2 is thinking (round 2)",
+        "forks": [
+            "F1: P4",
+            "F2: Free",
+            "F3: Free",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.52,
+        "philosopher": "P3",
+        "state": "Waiting",
+        "event": "Philosopher 3 waits for neighboring philosophers",
+        "forks": [
+            "F1: P4",
+            "F2: Free",
+            "F3: Free",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.52,
+        "philosopher": "P1",
+        "state": "Waiting",
+        "event": "Philosopher 1 waits for neighboring philosophers",
+        "forks": [
+            "F1: P4",
+            "F2: Free",
+            "F3: Free",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.546,
+        "philosopher": "P4",
+        "state": "Releasing",
+        "event": "Philosopher 4 is releasing both forks",
+        "forks": [
+            "F1: P4",
+            "F2: Free",
+            "F3: Free",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.546,
+        "philosopher": "P4",
+        "state": "Thinking",
+        "event": "Philosopher 4 finished eating and released both forks",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.547,
+        "philosopher": "P4",
+        "state": "Thinking",
+        "event": "Philosopher 4 is thinking (round 2)",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.547,
+        "philosopher": "P3",
+        "state": "Eating",
+        "event": "Philosopher 3 acquired both forks and started eating",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572377.547,
+        "philosopher": "P1",
+        "state": "Eating",
+        "event": "Philosopher 1 acquired both forks and started eating",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572377.786,
+        "philosopher": "P4",
+        "state": "Hungry",
+        "event": "Philosopher 4 wants to eat",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572377.786,
+        "philosopher": "P4",
+        "state": "Waiting",
+        "event": "Philosopher 4 waits for neighboring philosophers",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572377.81,
+        "philosopher": "P3",
+        "state": "Releasing",
+        "event": "Philosopher 3 is releasing both forks",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: P3",
+            "F4: P3"
+        ]
+    },
+    {
+        "time": 1791572377.81,
+        "philosopher": "P3",
+        "state": "Thinking",
+        "event": "Philosopher 3 finished eating and released both forks",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.81,
+        "philosopher": "P3",
+        "state": "Finished",
+        "event": "Philosopher 3 completed both rounds",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.81,
+        "philosopher": "P4",
+        "state": "Waiting",
+        "event": "Philosopher 4 waits for neighboring philosophers",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.915,
+        "philosopher": "P2",
+        "state": "Hungry",
+        "event": "Philosopher 2 wants to eat",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.915,
+        "philosopher": "P2",
+        "state": "Waiting",
+        "event": "Philosopher 2 waits for neighboring philosophers",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.965,
+        "philosopher": "P1",
+        "state": "Releasing",
+        "event": "Philosopher 1 is releasing both forks",
+        "forks": [
+            "F1: P1",
+            "F2: P1",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.965,
+        "philosopher": "P1",
+        "state": "Thinking",
+        "event": "Philosopher 1 finished eating and released both forks",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.965,
+        "philosopher": "P1",
+        "state": "Finished",
+        "event": "Philosopher 1 completed both rounds",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572377.965,
+        "philosopher": "P4",
+        "state": "Eating",
+        "event": "Philosopher 4 acquired both forks and started eating",
+        "forks": [
+            "F1: P4",
+            "F2: Free",
+            "F3: Free",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572377.965,
+        "philosopher": "P2",
+        "state": "Eating",
+        "event": "Philosopher 2 acquired both forks and started eating",
+        "forks": [
+            "F1: P4",
+            "F2: P2",
+            "F3: P2",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572378.254,
+        "philosopher": "P4",
+        "state": "Releasing",
+        "event": "Philosopher 4 is releasing both forks",
+        "forks": [
+            "F1: P4",
+            "F2: P2",
+            "F3: P2",
+            "F4: P4"
+        ]
+    },
+    {
+        "time": 1791572378.254,
+        "philosopher": "P4",
+        "state": "Thinking",
+        "event": "Philosopher 4 finished eating and released both forks",
+        "forks": [
+            "F1: Free",
+            "F2: P2",
+            "F3: P2",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572378.254,
+        "philosopher": "P4",
+        "state": "Finished",
+        "event": "Philosopher 4 completed both rounds",
+        "forks": [
+            "F1: Free",
+            "F2: P2",
+            "F3: P2",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572378.395,
+        "philosopher": "P2",
+        "state": "Releasing",
+        "event": "Philosopher 2 is releasing both forks",
+        "forks": [
+            "F1: Free",
+            "F2: P2",
+            "F3: P2",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572378.395,
+        "philosopher": "P2",
+        "state": "Thinking",
+        "event": "Philosopher 2 finished eating and released both forks",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    },
+    {
+        "time": 1791572378.395,
+        "philosopher": "P2",
+        "state": "Finished",
+        "event": "Philosopher 2 completed both rounds",
+        "forks": [
+            "F1: Free",
+            "F2: Free",
+            "F3: Free",
+            "F4: Free"
+        ]
+    }
+]

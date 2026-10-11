@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dining Philosophers - Semaphore Simulation</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 25px;
+    background: #f3f6fa;
+    color: #222;
+}
+h1, h2 { color: #203864; }
+.summary, .card {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.cards {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(120px, 1fr));
+    gap: 12px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 9px;
+    text-align: left;
+}
+th { background: #203864; color: white; }
+tr:nth-child(even) { background: #eaf0f8; }
+</style>
+</head>
+<body>
+<h1>Dining Philosophers: Semaphore Simulation</h1>
+
+<div class="summary">
+    <p><b>Philosophers:</b> 4</p>
+    <p><b>Forks:</b> 4</p>
+    <p><b>Deadlock prevention:</b> Room semaphore allows at most 3
+    philosophers to compete for forks simultaneously.</p>
+    <p><b>Execution events recorded:</b> 68</p>
+    <p><b>Execution rounds:</b> 2 per philosopher</p>
+</div>
+
+<h2>Philosopher States</h2>
+<div class="cards">
+
+        <div class="card">
+            <h3>Philosopher 1</h3>
+            <p>Final state: Finished</p>
+        </div>
+        
+        <div class="card">
+            <h3>Philosopher 2</h3>
+            <p>Final state: Finished</p>
+        </div>
+        
+        <div class="card">
+            <h3>Philosopher 3</h3>
+            <p>Final state: Finished</p>
+        </div>
+        
+        <div class="card">
+            <h3>Philosopher 4</h3>
+            <p>Final state: Finished</p>
+        </div>
+        
+</div>
+
+<h2>Actual Execution Timeline</h2>
+<p>Fork ownership: Free means available; P1-P4 identify the owner.</p>
+<table>
+<tr>
+    <th>Time</th>
+    <th>Philosopher</th>
+    <th>State</th>
+    <th>Event</th>
+    <th>Fork Ownership</th>
+</tr>
+<tr><td>1791572126.64</td><td>P1</td><td>Thinking</td><td>Philosopher 1 is thinking (round 1)</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+<tr><td>1791572126.64</td><td>P2</td><td>Thinking</td><td>Philosopher 2 is thinking (round 1)</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+<tr><td>1791572126.64</td><td>P3</td><td>Thinking</td><td>Philosopher 3 is thinking (round 1)</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+<tr><td>1791572126.64</td><td>P4</td><td>Thinking</td><td>Philosopher 4 is thinking (round 1)</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+<tr><td>1791572126.874</td><td>P3</td><td>Hungry</td><td>Philosopher 3 wants to eat</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+<tr><td>1791572126.874</td><td>P3</td><td>Waiting for forks</td><td>Philosopher 3 is waiting to acquire forks</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+<tr><td>1791572126.874</td><td>P3</td><td>Acquiring Forks</td><td>Philosopher 3 acquired Fork 3</td><td>F1: Free, F2: Free, F3: P3, F4: Free</td></tr>
+<tr><td>1791572126.874</td><td>P3</td><td>Eating</td><td>Philosopher 3 acquired Fork 4 and started eating</td><td>F1: Free, F2: Free, F3: P3, F4: P3</td></tr>
+<tr><td>1791572126.893</td><td>P2</td><td>Hungry</td><td>Philosopher 2 wants to eat</td><td>F1: Free, F2: Free, F3: P3, F4: P3</td></tr>
+<tr><td>1791572126.893</td><td>P2</td><td>Waiting for forks</td><td>Philosopher 2 is waiting to acquire forks</td><td>F1: Free, F2: Free, F3: P3, F4: P3</td></tr>
+<tr><td>1791572126.893</td><td>P2</td><td>Acquiring Forks</td><td>Philosopher 2 acquired Fork 2</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572126.991</td><td>P1</td><td>Hungry</td><td>Philosopher 1 wants to eat</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572126.991</td><td>P1</td><td>Waiting for forks</td><td>Philosopher 1 is waiting to acquire forks</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572126.991</td><td>P1</td><td>Acquiring Forks</td><td>Philosopher 1 acquired Fork 1</td><td>F1: P1, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572127.07</td><td>P4</td><td>Hungry</td><td>Philosopher 4 wants to eat</td><td>F1: P1, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572127.212</td><td>P3</td><td>Releasing Forks</td><td>Philosopher 3 released Fork 4</td><td>F1: P1, F2: P2, F3: P3, F4: Free</td></tr>
+<tr><td>1791572127.212</td><td>P3</td><td>Releasing Forks</td><td>Philosopher 3 released Fork 3</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
+<tr><td>1791572127.212</td><td>P3</td><td>Thinking</td><td>Philosopher 3 finished eating and returned to thinking</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
+<tr><td>1791572127.212</td><td>P3</td><td>Thinking</td><td>Philosopher 3 is thinking (round 2)</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
+<tr><td>1791572127.212</td><td>P2</td><td>Eating</td><td>Philosopher 2 acquired Fork 3 and started eating</td><td>F1: P1, F2: P2, F3: P2, F4: Free</td></tr>
+<tr><td>1791572127.212</td><td>P4</td><td>Waiting for forks</td><td>Philosopher 4 is waiting to acquire forks</td><td>F1: P1, F2: P2, F3: P2, F4: Free</td></tr>
+<tr><td>1791572127.212</td><td>P4</td><td>Acquiring Forks</td><td>Philosopher 4 acquired Fork 4</td><td>F1: P1, F2: P2, F3: P2, F4: P4</td></tr>
+<tr><td>1791572127.479</td><td>P3</td><td>Hungry</td><td>Philosopher 3 wants to eat</td><td>F1: P1, F2: P2, F3: P2, F4: P4</td></tr>
+<tr><td>1791572127.518</td><td>P2</td><td>Releasing Forks</td><td>Philosopher 2 released Fork 3</td><td>F1: P1, F2: P2, F3: Free, F4: P4</td></tr>
+<tr><td>1791572127.518</td><td>P2</td><td>Releasing Forks</td><td>Philosopher 2 released Fork 2</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572127.518</td><td>P2</td><td>Thinking</td><td>Philosopher 2 finished eating and returned to thinking</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572127.518</td><td>P2</td><td>Thinking</td><td>Philosopher 2 is thinking (round 2)</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572127.518</td><td>P3</td><td>Waiting for forks</td><td>Philosopher 3 is waiting to acquire forks</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572127.518</td><td>P3</td><td>Acquiring Forks</td><td>Philosopher 3 acquired Fork 3</td><td>F1: P1, F2: Free, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.518</td><td>P1</td><td>Eating</td><td>Philosopher 1 acquired Fork 2 and started eating</td><td>F1: P1, F2: P1, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.725</td><td>P2</td><td>Hungry</td><td>Philosopher 2 wants to eat</td><td>F1: P1, F2: P1, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.881</td><td>P1</td><td>Releasing Forks</td><td>Philosopher 1 released Fork 2</td><td>F1: P1, F2: Free, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.881</td><td>P1</td><td>Releasing Forks</td><td>Philosopher 1 released Fork 1</td><td>F1: Free, F2: Free, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.881</td><td>P1</td><td>Thinking</td><td>Philosopher 1 finished eating and returned to thinking</td><td>F1: Free, F2: Free, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.881</td><td>P1</td><td>Thinking</td><td>Philosopher 1 is thinking (round 2)</td><td>F1: Free, F2: Free, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.881</td><td>P4</td><td>Eating</td><td>Philosopher 4 acquired Fork 1 and started eating</td><td>F1: P4, F2: Free, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.881</td><td>P2</td><td>Waiting for forks</td><td>Philosopher 2 is waiting to acquire forks</td><td>F1: P4, F2: Free, F3: P3, F4: P4</td></tr>
+<tr><td>1791572127.881</td><td>P2</td><td>Acquiring Forks</td><td>Philosopher 2 acquired Fork 2</td><td>F1: P4, F2: P2, F3: P3, F4: P4</td></tr>
+<tr><td>1791572128.359</td><td>P1</td><td>Hungry</td><td>Philosopher 1 wants to eat</td><td>F1: P4, F2: P2, F3: P3, F4: P4</td></tr>
+<tr><td>1791572128.369</td><td>P4</td><td>Releasing Forks</td><td>Philosopher 4 released Fork 1</td><td>F1: Free, F2: P2, F3: P3, F4: P4</td></tr>
+<tr><td>1791572128.369</td><td>P4</td><td>Releasing Forks</td><td>Philosopher 4 released Fork 4</td><td>F1: Free, F2: P2, F3: P3, F4: Free</td></tr>
+<tr><td>1791572128.369</td><td>P4</td><td>Thinking</td><td>Philosopher 4 finished eating and returned to thinking</td><td>F1: Free, F2: P2, F3: P3, F4: Free</td></tr>
+<tr><td>1791572128.369</td><td>P4</td><td>Thinking</td><td>Philosopher 4 is thinking (round 2)</td><td>F1: Free, F2: P2, F3: P3, F4: Free</td></tr>
+<tr><td>1791572128.369</td><td>P3</td><td>Eating</td><td>Philosopher 3 acquired Fork 4 and started eating</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572128.369</td><td>P1</td><td>Waiting for forks</td><td>Philosopher 1 is waiting to acquire forks</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572128.369</td><td>P1</td><td>Acquiring Forks</td><td>Philosopher 1 acquired Fork 1</td><td>F1: P1, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572128.779</td><td>P4</td><td>Hungry</td><td>Philosopher 4 wants to eat</td><td>F1: P1, F2: P2, F3: P3, F4: P3</td></tr>
+<tr><td>1791572128.823</td><td>P3</td><td>Releasing Forks</td><td>Philosopher 3 released Fork 4</td><td>F1: P1, F2: P2, F3: P3, F4: Free</td></tr>
+<tr><td>1791572128.823</td><td>P3</td><td>Releasing Forks</td><td>Philosopher 3 released Fork 3</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
+<tr><td>1791572128.823</td><td>P3</td><td>Thinking</td><td>Philosopher 3 finished eating and returned to thinking</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
+<tr><td>1791572128.823</td><td>P3</td><td>Finished</td><td>Philosopher 3 completed both rounds</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
+<tr><td>1791572128.823</td><td>P2</td><td>Eating</td><td>Philosopher 2 acquired Fork 3 and started eating</td><td>F1: P1, F2: P2, F3: P2, F4: Free</td></tr>
+<tr><td>1791572128.823</td><td>P4</td><td>Waiting for forks</td><td>Philosopher 4 is waiting to acquire forks</td><td>F1: P1, F2: P2, F3: P2, F4: Free</td></tr>
+<tr><td>1791572128.823</td><td>P4</td><td>Acquiring Forks</td><td>Philosopher 4 acquired Fork 4</td><td>F1: P1, F2: P2, F3: P2, F4: P4</td></tr>
+<tr><td>1791572129.414</td><td>P2</td><td>Releasing Forks</td><td>Philosopher 2 released Fork 3</td><td>F1: P1, F2: P2, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.414</td><td>P2</td><td>Releasing Forks</td><td>Philosopher 2 released Fork 2</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.414</td><td>P2</td><td>Thinking</td><td>Philosopher 2 finished eating and returned to thinking</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.414</td><td>P2</td><td>Finished</td><td>Philosopher 2 completed both rounds</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.414</td><td>P1</td><td>Eating</td><td>Philosopher 1 acquired Fork 2 and started eating</td><td>F1: P1, F2: P1, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.8</td><td>P1</td><td>Releasing Forks</td><td>Philosopher 1 released Fork 2</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.8</td><td>P1</td><td>Releasing Forks</td><td>Philosopher 1 released Fork 1</td><td>F1: Free, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.8</td><td>P1</td><td>Thinking</td><td>Philosopher 1 finished eating and returned to thinking</td><td>F1: Free, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.8</td><td>P1</td><td>Finished</td><td>Philosopher 1 completed both rounds</td><td>F1: Free, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572129.8</td><td>P4</td><td>Eating</td><td>Philosopher 4 acquired Fork 1 and started eating</td><td>F1: P4, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572130.242</td><td>P4</td><td>Releasing Forks</td><td>Philosopher 4 released Fork 1</td><td>F1: Free, F2: Free, F3: Free, F4: P4</td></tr>
+<tr><td>1791572130.242</td><td>P4</td><td>Releasing Forks</td><td>Philosopher 4 released Fork 4</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+<tr><td>1791572130.242</td><td>P4</td><td>Thinking</td><td>Philosopher 4 finished eating and returned to thinking</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+<tr><td>1791572130.242</td><td>P4</td><td>Finished</td><td>Philosopher 4 completed both rounds</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
+
+</table>
+</body>
+</html>

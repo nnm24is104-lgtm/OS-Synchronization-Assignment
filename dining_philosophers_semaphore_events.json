@@ -1,0 +1,1226 @@
+[
+    {
+        "time": 1791572126.64,
+        "philosopher": 1,
+        "state": "Thinking",
+        "message": "Philosopher 1 is thinking (round 1)",
+        "states": [
+            "Thinking",
+            "Thinking",
+            "Thinking",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572126.64,
+        "philosopher": 2,
+        "state": "Thinking",
+        "message": "Philosopher 2 is thinking (round 1)",
+        "states": [
+            "Thinking",
+            "Thinking",
+            "Thinking",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572126.64,
+        "philosopher": 3,
+        "state": "Thinking",
+        "message": "Philosopher 3 is thinking (round 1)",
+        "states": [
+            "Thinking",
+            "Thinking",
+            "Thinking",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572126.64,
+        "philosopher": 4,
+        "state": "Thinking",
+        "message": "Philosopher 4 is thinking (round 1)",
+        "states": [
+            "Thinking",
+            "Thinking",
+            "Thinking",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572126.874,
+        "philosopher": 3,
+        "state": "Hungry",
+        "message": "Philosopher 3 wants to eat",
+        "states": [
+            "Thinking",
+            "Thinking",
+            "Hungry",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572126.874,
+        "philosopher": 3,
+        "state": "Waiting for forks",
+        "message": "Philosopher 3 is waiting to acquire forks",
+        "states": [
+            "Thinking",
+            "Thinking",
+            "Waiting for forks",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572126.874,
+        "philosopher": 3,
+        "state": "Acquiring Forks",
+        "message": "Philosopher 3 acquired Fork 3",
+        "states": [
+            "Thinking",
+            "Thinking",
+            "Waiting for forks",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            3,
+            null
+        ]
+    },
+    {
+        "time": 1791572126.874,
+        "philosopher": 3,
+        "state": "Eating",
+        "message": "Philosopher 3 acquired Fork 4 and started eating",
+        "states": [
+            "Thinking",
+            "Thinking",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572126.893,
+        "philosopher": 2,
+        "state": "Hungry",
+        "message": "Philosopher 2 wants to eat",
+        "states": [
+            "Thinking",
+            "Hungry",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572126.893,
+        "philosopher": 2,
+        "state": "Waiting for forks",
+        "message": "Philosopher 2 is waiting to acquire forks",
+        "states": [
+            "Thinking",
+            "Waiting for forks",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572126.893,
+        "philosopher": 2,
+        "state": "Acquiring Forks",
+        "message": "Philosopher 2 acquired Fork 2",
+        "states": [
+            "Thinking",
+            "Waiting for forks",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572126.991,
+        "philosopher": 1,
+        "state": "Hungry",
+        "message": "Philosopher 1 wants to eat",
+        "states": [
+            "Hungry",
+            "Waiting for forks",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572126.991,
+        "philosopher": 1,
+        "state": "Waiting for forks",
+        "message": "Philosopher 1 is waiting to acquire forks",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572126.991,
+        "philosopher": 1,
+        "state": "Acquiring Forks",
+        "message": "Philosopher 1 acquired Fork 1",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572127.07,
+        "philosopher": 4,
+        "state": "Hungry",
+        "message": "Philosopher 4 wants to eat",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572127.212,
+        "philosopher": 3,
+        "state": "Releasing Forks",
+        "message": "Philosopher 3 released Fork 4",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            3,
+            null
+        ]
+    },
+    {
+        "time": 1791572127.212,
+        "philosopher": 3,
+        "state": "Releasing Forks",
+        "message": "Philosopher 3 released Fork 3",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572127.212,
+        "philosopher": 3,
+        "state": "Thinking",
+        "message": "Philosopher 3 finished eating and returned to thinking",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Thinking",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572127.212,
+        "philosopher": 3,
+        "state": "Thinking",
+        "message": "Philosopher 3 is thinking (round 2)",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Thinking",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572127.212,
+        "philosopher": 2,
+        "state": "Eating",
+        "message": "Philosopher 2 acquired Fork 3 and started eating",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Thinking",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            2,
+            null
+        ]
+    },
+    {
+        "time": 1791572127.212,
+        "philosopher": 4,
+        "state": "Waiting for forks",
+        "message": "Philosopher 4 is waiting to acquire forks",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Thinking",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            2,
+            null
+        ]
+    },
+    {
+        "time": 1791572127.212,
+        "philosopher": 4,
+        "state": "Acquiring Forks",
+        "message": "Philosopher 4 acquired Fork 4",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Thinking",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            2,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.479,
+        "philosopher": 3,
+        "state": "Hungry",
+        "message": "Philosopher 3 wants to eat",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Hungry",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            2,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.518,
+        "philosopher": 2,
+        "state": "Releasing Forks",
+        "message": "Philosopher 2 released Fork 3",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Hungry",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.518,
+        "philosopher": 2,
+        "state": "Releasing Forks",
+        "message": "Philosopher 2 released Fork 2",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Hungry",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.518,
+        "philosopher": 2,
+        "state": "Thinking",
+        "message": "Philosopher 2 finished eating and returned to thinking",
+        "states": [
+            "Waiting for forks",
+            "Thinking",
+            "Hungry",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.518,
+        "philosopher": 2,
+        "state": "Thinking",
+        "message": "Philosopher 2 is thinking (round 2)",
+        "states": [
+            "Waiting for forks",
+            "Thinking",
+            "Hungry",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.518,
+        "philosopher": 3,
+        "state": "Waiting for forks",
+        "message": "Philosopher 3 is waiting to acquire forks",
+        "states": [
+            "Waiting for forks",
+            "Thinking",
+            "Waiting for forks",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.518,
+        "philosopher": 3,
+        "state": "Acquiring Forks",
+        "message": "Philosopher 3 acquired Fork 3",
+        "states": [
+            "Waiting for forks",
+            "Thinking",
+            "Waiting for forks",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.518,
+        "philosopher": 1,
+        "state": "Eating",
+        "message": "Philosopher 1 acquired Fork 2 and started eating",
+        "states": [
+            "Eating",
+            "Thinking",
+            "Waiting for forks",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            1,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.725,
+        "philosopher": 2,
+        "state": "Hungry",
+        "message": "Philosopher 2 wants to eat",
+        "states": [
+            "Eating",
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            1,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.881,
+        "philosopher": 1,
+        "state": "Releasing Forks",
+        "message": "Philosopher 1 released Fork 2",
+        "states": [
+            "Eating",
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.881,
+        "philosopher": 1,
+        "state": "Releasing Forks",
+        "message": "Philosopher 1 released Fork 1",
+        "states": [
+            "Eating",
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.881,
+        "philosopher": 1,
+        "state": "Thinking",
+        "message": "Philosopher 1 finished eating and returned to thinking",
+        "states": [
+            "Thinking",
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.881,
+        "philosopher": 1,
+        "state": "Thinking",
+        "message": "Philosopher 1 is thinking (round 2)",
+        "states": [
+            "Thinking",
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.881,
+        "philosopher": 4,
+        "state": "Eating",
+        "message": "Philosopher 4 acquired Fork 1 and started eating",
+        "states": [
+            "Thinking",
+            "Hungry",
+            "Waiting for forks",
+            "Eating"
+        ],
+        "fork_owners": [
+            4,
+            null,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.881,
+        "philosopher": 2,
+        "state": "Waiting for forks",
+        "message": "Philosopher 2 is waiting to acquire forks",
+        "states": [
+            "Thinking",
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating"
+        ],
+        "fork_owners": [
+            4,
+            null,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572127.881,
+        "philosopher": 2,
+        "state": "Acquiring Forks",
+        "message": "Philosopher 2 acquired Fork 2",
+        "states": [
+            "Thinking",
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating"
+        ],
+        "fork_owners": [
+            4,
+            2,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572128.359,
+        "philosopher": 1,
+        "state": "Hungry",
+        "message": "Philosopher 1 wants to eat",
+        "states": [
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating"
+        ],
+        "fork_owners": [
+            4,
+            2,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572128.369,
+        "philosopher": 4,
+        "state": "Releasing Forks",
+        "message": "Philosopher 4 released Fork 1",
+        "states": [
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            4
+        ]
+    },
+    {
+        "time": 1791572128.369,
+        "philosopher": 4,
+        "state": "Releasing Forks",
+        "message": "Philosopher 4 released Fork 4",
+        "states": [
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.369,
+        "philosopher": 4,
+        "state": "Thinking",
+        "message": "Philosopher 4 finished eating and returned to thinking",
+        "states": [
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.369,
+        "philosopher": 4,
+        "state": "Thinking",
+        "message": "Philosopher 4 is thinking (round 2)",
+        "states": [
+            "Hungry",
+            "Waiting for forks",
+            "Waiting for forks",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.369,
+        "philosopher": 3,
+        "state": "Eating",
+        "message": "Philosopher 3 acquired Fork 4 and started eating",
+        "states": [
+            "Hungry",
+            "Waiting for forks",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572128.369,
+        "philosopher": 1,
+        "state": "Waiting for forks",
+        "message": "Philosopher 1 is waiting to acquire forks",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572128.369,
+        "philosopher": 1,
+        "state": "Acquiring Forks",
+        "message": "Philosopher 1 acquired Fork 1",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Thinking"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572128.779,
+        "philosopher": 4,
+        "state": "Hungry",
+        "message": "Philosopher 4 wants to eat",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            3,
+            3
+        ]
+    },
+    {
+        "time": 1791572128.823,
+        "philosopher": 3,
+        "state": "Releasing Forks",
+        "message": "Philosopher 3 released Fork 4",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            3,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.823,
+        "philosopher": 3,
+        "state": "Releasing Forks",
+        "message": "Philosopher 3 released Fork 3",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Eating",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.823,
+        "philosopher": 3,
+        "state": "Thinking",
+        "message": "Philosopher 3 finished eating and returned to thinking",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Thinking",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.823,
+        "philosopher": 3,
+        "state": "Finished",
+        "message": "Philosopher 3 completed both rounds",
+        "states": [
+            "Waiting for forks",
+            "Waiting for forks",
+            "Finished",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.823,
+        "philosopher": 2,
+        "state": "Eating",
+        "message": "Philosopher 2 acquired Fork 3 and started eating",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Finished",
+            "Hungry"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            2,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.823,
+        "philosopher": 4,
+        "state": "Waiting for forks",
+        "message": "Philosopher 4 is waiting to acquire forks",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            2,
+            null
+        ]
+    },
+    {
+        "time": 1791572128.823,
+        "philosopher": 4,
+        "state": "Acquiring Forks",
+        "message": "Philosopher 4 acquired Fork 4",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            2,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.414,
+        "philosopher": 2,
+        "state": "Releasing Forks",
+        "message": "Philosopher 2 released Fork 3",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            2,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.414,
+        "philosopher": 2,
+        "state": "Releasing Forks",
+        "message": "Philosopher 2 released Fork 2",
+        "states": [
+            "Waiting for forks",
+            "Eating",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.414,
+        "philosopher": 2,
+        "state": "Thinking",
+        "message": "Philosopher 2 finished eating and returned to thinking",
+        "states": [
+            "Waiting for forks",
+            "Thinking",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.414,
+        "philosopher": 2,
+        "state": "Finished",
+        "message": "Philosopher 2 completed both rounds",
+        "states": [
+            "Waiting for forks",
+            "Finished",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.414,
+        "philosopher": 1,
+        "state": "Eating",
+        "message": "Philosopher 1 acquired Fork 2 and started eating",
+        "states": [
+            "Eating",
+            "Finished",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            1,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.8,
+        "philosopher": 1,
+        "state": "Releasing Forks",
+        "message": "Philosopher 1 released Fork 2",
+        "states": [
+            "Eating",
+            "Finished",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            1,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.8,
+        "philosopher": 1,
+        "state": "Releasing Forks",
+        "message": "Philosopher 1 released Fork 1",
+        "states": [
+            "Eating",
+            "Finished",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.8,
+        "philosopher": 1,
+        "state": "Thinking",
+        "message": "Philosopher 1 finished eating and returned to thinking",
+        "states": [
+            "Thinking",
+            "Finished",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.8,
+        "philosopher": 1,
+        "state": "Finished",
+        "message": "Philosopher 1 completed both rounds",
+        "states": [
+            "Finished",
+            "Finished",
+            "Finished",
+            "Waiting for forks"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572129.8,
+        "philosopher": 4,
+        "state": "Eating",
+        "message": "Philosopher 4 acquired Fork 1 and started eating",
+        "states": [
+            "Finished",
+            "Finished",
+            "Finished",
+            "Eating"
+        ],
+        "fork_owners": [
+            4,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572130.242,
+        "philosopher": 4,
+        "state": "Releasing Forks",
+        "message": "Philosopher 4 released Fork 1",
+        "states": [
+            "Finished",
+            "Finished",
+            "Finished",
+            "Eating"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            4
+        ]
+    },
+    {
+        "time": 1791572130.242,
+        "philosopher": 4,
+        "state": "Releasing Forks",
+        "message": "Philosopher 4 released Fork 4",
+        "states": [
+            "Finished",
+            "Finished",
+            "Finished",
+            "Eating"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572130.242,
+        "philosopher": 4,
+        "state": "Thinking",
+        "message": "Philosopher 4 finished eating and returned to thinking",
+        "states": [
+            "Finished",
+            "Finished",
+            "Finished",
+            "Thinking"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    },
+    {
+        "time": 1791572130.242,
+        "philosopher": 4,
+        "state": "Finished",
+        "message": "Philosopher 4 completed both rounds",
+        "states": [
+            "Finished",
+            "Finished",
+            "Finished",
+            "Finished"
+        ],
+        "fork_owners": [
+            null,
+            null,
+            null,
+            null
+        ]
+    }
+]

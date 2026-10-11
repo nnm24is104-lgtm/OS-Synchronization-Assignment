@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Readers-Writers Semaphore Simulation</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 30px;
+    background: #f3f6fa;
+}
+h1 { color: #203864; }
+.summary {
+    background: white;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+th { background: #203864; color: white; }
+tr:nth-child(even) { background: #eaf0f8; }
+</style>
+</head>
+<body>
+<h1>Readers-Writers: Semaphore Simulation</h1>
+<div class="summary">
+<p><b>Final shared data:</b> Data updated by Writer 2</p>
+<p><b>Maximum simultaneous readers:</b> 3</p>
+<p><b>Synchronization checks:</b> Passed</p>
+<p>This timeline was generated from recorded program execution events.</p>
+</div>
+<table>
+<tr>
+<th>Time</th>
+<th>Process</th>
+<th>State</th>
+<th>Event</th>
+</tr>
+<tr><td>1791571426.621</td><td>Writer 1</td><td>Waiting</td><td>Waiting to write</td></tr>
+<tr><td>1791571426.621</td><td>Writer 1</td><td>Writing</td><td>Entered the writing section</td></tr>
+<tr><td>1791571426.723</td><td>Writer 2</td><td>Waiting</td><td>Waiting to write</td></tr>
+<tr><td>1791571426.824</td><td>Reader 2</td><td>Waiting</td><td>Waiting to read</td></tr>
+<tr><td>1791571426.924</td><td>Reader 3</td><td>Waiting</td><td>Waiting to read</td></tr>
+<tr><td>1791571427.025</td><td>Reader 1</td><td>Waiting</td><td>Waiting to read</td></tr>
+<tr><td>1791571427.526</td><td>Writer 1</td><td>Writing</td><td>Updated shared data: Data updated by Writer 1</td></tr>
+<tr><td>1791571427.526</td><td>Writer 1</td><td>Finished</td><td>Finished writing</td></tr>
+<tr><td>1791571427.527</td><td>Writer 2</td><td>Writing</td><td>Entered the writing section</td></tr>
+<tr><td>1791571428.398</td><td>Writer 2</td><td>Writing</td><td>Updated shared data: Data updated by Writer 2</td></tr>
+<tr><td>1791571428.398</td><td>Writer 2</td><td>Finished</td><td>Finished writing</td></tr>
+<tr><td>1791571428.399</td><td>Reader 2</td><td>Reading</td><td>Entered the reading section</td></tr>
+<tr><td>1791571428.399</td><td>Reader 3</td><td>Reading</td><td>Entered the reading section</td></tr>
+<tr><td>1791571428.399</td><td>Reader 1</td><td>Reading</td><td>Entered the reading section</td></tr>
+<tr><td>1791571429.058</td><td>Reader 2</td><td>Reading</td><td>Read shared data: Data updated by Writer 2</td></tr>
+<tr><td>1791571429.058</td><td>Reader 2</td><td>Finished</td><td>Finished reading</td></tr>
+<tr><td>1791571429.239</td><td>Reader 1</td><td>Reading</td><td>Read shared data: Data updated by Writer 2</td></tr>
+<tr><td>1791571429.239</td><td>Reader 1</td><td>Finished</td><td>Finished reading</td></tr>
+<tr><td>1791571429.308</td><td>Reader 3</td><td>Reading</td><td>Read shared data: Data updated by Writer 2</td></tr>
+<tr><td>1791571429.308</td><td>Reader 3</td><td>Finished</td><td>Finished reading</td></tr>
+
+</table>
+</body>
+</html>

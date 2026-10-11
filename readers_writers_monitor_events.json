@@ -1,0 +1,122 @@
+[
+    {
+        "time": 1791571833.535,
+        "process": "Reader 3",
+        "state": "Waiting",
+        "message": "Waiting to read"
+    },
+    {
+        "time": 1791571833.535,
+        "process": "Reader 3",
+        "state": "Reading",
+        "message": "Entered the reading section"
+    },
+    {
+        "time": 1791571833.636,
+        "process": "Reader 1",
+        "state": "Waiting",
+        "message": "Waiting to read"
+    },
+    {
+        "time": 1791571833.636,
+        "process": "Reader 1",
+        "state": "Reading",
+        "message": "Entered the reading section"
+    },
+    {
+        "time": 1791571833.737,
+        "process": "Reader 2",
+        "state": "Waiting",
+        "message": "Waiting to read"
+    },
+    {
+        "time": 1791571833.737,
+        "process": "Reader 2",
+        "state": "Reading",
+        "message": "Entered the reading section"
+    },
+    {
+        "time": 1791571833.838,
+        "process": "Writer 2",
+        "state": "Waiting",
+        "message": "Waiting to write"
+    },
+    {
+        "time": 1791571833.938,
+        "process": "Writer 1",
+        "state": "Waiting",
+        "message": "Waiting to write"
+    },
+    {
+        "time": 1791571834.258,
+        "process": "Reader 3",
+        "state": "Reading",
+        "message": "Read shared data: Initial Data"
+    },
+    {
+        "time": 1791571834.258,
+        "process": "Reader 3",
+        "state": "Finished",
+        "message": "Finished reading"
+    },
+    {
+        "time": 1791571834.428,
+        "process": "Reader 2",
+        "state": "Reading",
+        "message": "Read shared data: Initial Data"
+    },
+    {
+        "time": 1791571834.428,
+        "process": "Reader 2",
+        "state": "Finished",
+        "message": "Finished reading"
+    },
+    {
+        "time": 1791571834.491,
+        "process": "Reader 1",
+        "state": "Reading",
+        "message": "Read shared data: Initial Data"
+    },
+    {
+        "time": 1791571834.491,
+        "process": "Reader 1",
+        "state": "Finished",
+        "message": "Finished reading"
+    },
+    {
+        "time": 1791571834.491,
+        "process": "Writer 2",
+        "state": "Writing",
+        "message": "Entered the writing section"
+    },
+    {
+        "time": 1791571835.052,
+        "process": "Writer 2",
+        "state": "Writing",
+        "message": "Updated shared data: Data updated by Writer 2"
+    },
+    {
+        "time": 1791571835.052,
+        "process": "Writer 2",
+        "state": "Finished",
+        "message": "Finished writing"
+    },
+    {
+        "time": 1791571835.052,
+        "process": "Writer 1",
+        "state": "Writing",
+        "message": "Entered the writing section"
+    },
+    {
+        "time": 1791571835.782,
+        "process": "Writer 1",
+        "state": "Writing",
+        "message": "Updated shared data: Data updated by Writer 1"
+    },
+    {
+        "time": 1791571835.782,
+        "process": "Writer 1",
+        "state": "Finished",
+        "message": "Finished writing"
+    }
+]
