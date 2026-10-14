@@ -1,157 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Dining Philosophers - Semaphore Simulation</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dining Philosophers - Semaphore</title>
 <style>
-body {
-    font-family: Arial, sans-serif;
-    margin: 25px;
-    background: #f3f6fa;
-    color: #222;
-}
-h1, h2 { color: #203864; }
-.summary, .card {
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-}
-.cards {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(120px, 1fr));
-    gap: 12px;
-}
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-}
-th, td {
-    border: 1px solid #ccc;
-    padding: 9px;
-    text-align: left;
-}
-th { background: #203864; color: white; }
-tr:nth-child(even) { background: #eaf0f8; }
+body{font-family:Arial;background:#f2f5fa;color:#202b3c;margin:20px}
+h1,h2{color:#203864}
+.panel{background:white;padding:16px;margin:14px 0;border-radius:12px;box-shadow:0 2px 8px #0001}
+.stage{position:relative;max-width:700px;height:440px;margin:auto}
+.tabletop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px;height:220px;border-radius:50%;background:#ead9ba;border:9px solid #9d7b52;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:bold}
+.person{position:absolute;transform:translate(-50%,-50%);width:130px;padding:10px 5px;text-align:center;border:2px solid #aab4c3;border-radius:12px;background:white;box-sizing:border-box}
+.state{font-size:12px;margin-top:5px}
+.eating{background:#d9f7e5;border-color:#198754}
+.waiting{background:#fff0c2;border-color:#d59a21}
+.finished{background:#e8edf3;border-color:#718096}
+.fork{position:absolute;transform:translate(-50%,-50%);background:white;border:1px solid #8996a8;border-radius:20px;padding:7px;font-size:12px;white-space:nowrap}
+.owned{background:#d7e8ff;border-color:#2670bd;font-weight:bold}
+button{background:#203864;color:white;border:0;border-radius:6px;padding:9px 12px;margin:3px;cursor:pointer}
+.controls{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+input[type=range]{flex:1;min-width:150px}
+table{border-collapse:collapse;width:100%;background:white;font-size:13px}
+th,td{border:1px solid #d5dce6;padding:8px;text-align:left}
+th{background:#203864;color:white}
+tr:nth-child(even){background:#edf2f8}
+.wrap{overflow-x:auto}
 </style>
 </head>
 <body>
-<h1>Dining Philosophers: Semaphore Simulation</h1>
-
-<div class="summary">
-    <p><b>Philosophers:</b> 4</p>
-    <p><b>Forks:</b> 4</p>
-    <p><b>Deadlock prevention:</b> Room semaphore allows at most 3
-    philosophers to compete for forks simultaneously.</p>
-    <p><b>Execution events recorded:</b> 68</p>
-    <p><b>Execution rounds:</b> 2 per philosopher</p>
+<h1>Dining Philosophers - Semaphore Solution</h1>
+<div class="panel">
+<p><b>Philosophers:</b> 4 | <b>Forks:</b> 4 | <b>Rounds:</b> 2 each</p>
+<p><b>Deadlock prevention:</b> Room semaphore permits at most three philosophers to compete for forks.</p>
+<p><b>Actual recorded events:</b> <span id="total"></span></p>
 </div>
-
-<h2>Philosopher States</h2>
-<div class="cards">
-
-        <div class="card">
-            <h3>Philosopher 1</h3>
-            <p>Final state: Finished</p>
-        </div>
-        
-        <div class="card">
-            <h3>Philosopher 2</h3>
-            <p>Final state: Finished</p>
-        </div>
-        
-        <div class="card">
-            <h3>Philosopher 3</h3>
-            <p>Final state: Finished</p>
-        </div>
-        
-        <div class="card">
-            <h3>Philosopher 4</h3>
-            <p>Final state: Finished</p>
-        </div>
-        
+<div class="panel">
+<h2>Execution Replay</h2>
+<div class="stage">
+<div class="tabletop">Dining<br>Table</div>
+<div class="person" id="p0">Philosopher 1<div class="state"></div></div>
+<div class="person" id="p1">Philosopher 2<div class="state"></div></div>
+<div class="person" id="p2">Philosopher 3<div class="state"></div></div>
+<div class="person" id="p3">Philosopher 4<div class="state"></div></div>
+<div class="fork" id="f0">Fork 1</div><div class="fork" id="f1">Fork 2</div>
+<div class="fork" id="f2">Fork 3</div><div class="fork" id="f3">Fork 4</div>
 </div>
-
+<div class="controls">
+<button id="play">Play</button><button id="prev">Previous</button>
+<button id="next">Next</button><input id="slider" type="range" min="0" value="0">
+<span id="counter"></span>
+</div>
+<p id="message"></p>
+</div>
+<div class="panel">
 <h2>Actual Execution Timeline</h2>
-<p>Fork ownership: Free means available; P1-P4 identify the owner.</p>
-<table>
-<tr>
-    <th>Time</th>
-    <th>Philosopher</th>
-    <th>State</th>
-    <th>Event</th>
-    <th>Fork Ownership</th>
-</tr>
-<tr><td>1791572126.64</td><td>P1</td><td>Thinking</td><td>Philosopher 1 is thinking (round 1)</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-<tr><td>1791572126.64</td><td>P2</td><td>Thinking</td><td>Philosopher 2 is thinking (round 1)</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-<tr><td>1791572126.64</td><td>P3</td><td>Thinking</td><td>Philosopher 3 is thinking (round 1)</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-<tr><td>1791572126.64</td><td>P4</td><td>Thinking</td><td>Philosopher 4 is thinking (round 1)</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-<tr><td>1791572126.874</td><td>P3</td><td>Hungry</td><td>Philosopher 3 wants to eat</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-<tr><td>1791572126.874</td><td>P3</td><td>Waiting for forks</td><td>Philosopher 3 is waiting to acquire forks</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-<tr><td>1791572126.874</td><td>P3</td><td>Acquiring Forks</td><td>Philosopher 3 acquired Fork 3</td><td>F1: Free, F2: Free, F3: P3, F4: Free</td></tr>
-<tr><td>1791572126.874</td><td>P3</td><td>Eating</td><td>Philosopher 3 acquired Fork 4 and started eating</td><td>F1: Free, F2: Free, F3: P3, F4: P3</td></tr>
-<tr><td>1791572126.893</td><td>P2</td><td>Hungry</td><td>Philosopher 2 wants to eat</td><td>F1: Free, F2: Free, F3: P3, F4: P3</td></tr>
-<tr><td>1791572126.893</td><td>P2</td><td>Waiting for forks</td><td>Philosopher 2 is waiting to acquire forks</td><td>F1: Free, F2: Free, F3: P3, F4: P3</td></tr>
-<tr><td>1791572126.893</td><td>P2</td><td>Acquiring Forks</td><td>Philosopher 2 acquired Fork 2</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572126.991</td><td>P1</td><td>Hungry</td><td>Philosopher 1 wants to eat</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572126.991</td><td>P1</td><td>Waiting for forks</td><td>Philosopher 1 is waiting to acquire forks</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572126.991</td><td>P1</td><td>Acquiring Forks</td><td>Philosopher 1 acquired Fork 1</td><td>F1: P1, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572127.07</td><td>P4</td><td>Hungry</td><td>Philosopher 4 wants to eat</td><td>F1: P1, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572127.212</td><td>P3</td><td>Releasing Forks</td><td>Philosopher 3 released Fork 4</td><td>F1: P1, F2: P2, F3: P3, F4: Free</td></tr>
-<tr><td>1791572127.212</td><td>P3</td><td>Releasing Forks</td><td>Philosopher 3 released Fork 3</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
-<tr><td>1791572127.212</td><td>P3</td><td>Thinking</td><td>Philosopher 3 finished eating and returned to thinking</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
-<tr><td>1791572127.212</td><td>P3</td><td>Thinking</td><td>Philosopher 3 is thinking (round 2)</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
-<tr><td>1791572127.212</td><td>P2</td><td>Eating</td><td>Philosopher 2 acquired Fork 3 and started eating</td><td>F1: P1, F2: P2, F3: P2, F4: Free</td></tr>
-<tr><td>1791572127.212</td><td>P4</td><td>Waiting for forks</td><td>Philosopher 4 is waiting to acquire forks</td><td>F1: P1, F2: P2, F3: P2, F4: Free</td></tr>
-<tr><td>1791572127.212</td><td>P4</td><td>Acquiring Forks</td><td>Philosopher 4 acquired Fork 4</td><td>F1: P1, F2: P2, F3: P2, F4: P4</td></tr>
-<tr><td>1791572127.479</td><td>P3</td><td>Hungry</td><td>Philosopher 3 wants to eat</td><td>F1: P1, F2: P2, F3: P2, F4: P4</td></tr>
-<tr><td>1791572127.518</td><td>P2</td><td>Releasing Forks</td><td>Philosopher 2 released Fork 3</td><td>F1: P1, F2: P2, F3: Free, F4: P4</td></tr>
-<tr><td>1791572127.518</td><td>P2</td><td>Releasing Forks</td><td>Philosopher 2 released Fork 2</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572127.518</td><td>P2</td><td>Thinking</td><td>Philosopher 2 finished eating and returned to thinking</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572127.518</td><td>P2</td><td>Thinking</td><td>Philosopher 2 is thinking (round 2)</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572127.518</td><td>P3</td><td>Waiting for forks</td><td>Philosopher 3 is waiting to acquire forks</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572127.518</td><td>P3</td><td>Acquiring Forks</td><td>Philosopher 3 acquired Fork 3</td><td>F1: P1, F2: Free, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.518</td><td>P1</td><td>Eating</td><td>Philosopher 1 acquired Fork 2 and started eating</td><td>F1: P1, F2: P1, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.725</td><td>P2</td><td>Hungry</td><td>Philosopher 2 wants to eat</td><td>F1: P1, F2: P1, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.881</td><td>P1</td><td>Releasing Forks</td><td>Philosopher 1 released Fork 2</td><td>F1: P1, F2: Free, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.881</td><td>P1</td><td>Releasing Forks</td><td>Philosopher 1 released Fork 1</td><td>F1: Free, F2: Free, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.881</td><td>P1</td><td>Thinking</td><td>Philosopher 1 finished eating and returned to thinking</td><td>F1: Free, F2: Free, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.881</td><td>P1</td><td>Thinking</td><td>Philosopher 1 is thinking (round 2)</td><td>F1: Free, F2: Free, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.881</td><td>P4</td><td>Eating</td><td>Philosopher 4 acquired Fork 1 and started eating</td><td>F1: P4, F2: Free, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.881</td><td>P2</td><td>Waiting for forks</td><td>Philosopher 2 is waiting to acquire forks</td><td>F1: P4, F2: Free, F3: P3, F4: P4</td></tr>
-<tr><td>1791572127.881</td><td>P2</td><td>Acquiring Forks</td><td>Philosopher 2 acquired Fork 2</td><td>F1: P4, F2: P2, F3: P3, F4: P4</td></tr>
-<tr><td>1791572128.359</td><td>P1</td><td>Hungry</td><td>Philosopher 1 wants to eat</td><td>F1: P4, F2: P2, F3: P3, F4: P4</td></tr>
-<tr><td>1791572128.369</td><td>P4</td><td>Releasing Forks</td><td>Philosopher 4 released Fork 1</td><td>F1: Free, F2: P2, F3: P3, F4: P4</td></tr>
-<tr><td>1791572128.369</td><td>P4</td><td>Releasing Forks</td><td>Philosopher 4 released Fork 4</td><td>F1: Free, F2: P2, F3: P3, F4: Free</td></tr>
-<tr><td>1791572128.369</td><td>P4</td><td>Thinking</td><td>Philosopher 4 finished eating and returned to thinking</td><td>F1: Free, F2: P2, F3: P3, F4: Free</td></tr>
-<tr><td>1791572128.369</td><td>P4</td><td>Thinking</td><td>Philosopher 4 is thinking (round 2)</td><td>F1: Free, F2: P2, F3: P3, F4: Free</td></tr>
-<tr><td>1791572128.369</td><td>P3</td><td>Eating</td><td>Philosopher 3 acquired Fork 4 and started eating</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572128.369</td><td>P1</td><td>Waiting for forks</td><td>Philosopher 1 is waiting to acquire forks</td><td>F1: Free, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572128.369</td><td>P1</td><td>Acquiring Forks</td><td>Philosopher 1 acquired Fork 1</td><td>F1: P1, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572128.779</td><td>P4</td><td>Hungry</td><td>Philosopher 4 wants to eat</td><td>F1: P1, F2: P2, F3: P3, F4: P3</td></tr>
-<tr><td>1791572128.823</td><td>P3</td><td>Releasing Forks</td><td>Philosopher 3 released Fork 4</td><td>F1: P1, F2: P2, F3: P3, F4: Free</td></tr>
-<tr><td>1791572128.823</td><td>P3</td><td>Releasing Forks</td><td>Philosopher 3 released Fork 3</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
-<tr><td>1791572128.823</td><td>P3</td><td>Thinking</td><td>Philosopher 3 finished eating and returned to thinking</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
-<tr><td>1791572128.823</td><td>P3</td><td>Finished</td><td>Philosopher 3 completed both rounds</td><td>F1: P1, F2: P2, F3: Free, F4: Free</td></tr>
-<tr><td>1791572128.823</td><td>P2</td><td>Eating</td><td>Philosopher 2 acquired Fork 3 and started eating</td><td>F1: P1, F2: P2, F3: P2, F4: Free</td></tr>
-<tr><td>1791572128.823</td><td>P4</td><td>Waiting for forks</td><td>Philosopher 4 is waiting to acquire forks</td><td>F1: P1, F2: P2, F3: P2, F4: Free</td></tr>
-<tr><td>1791572128.823</td><td>P4</td><td>Acquiring Forks</td><td>Philosopher 4 acquired Fork 4</td><td>F1: P1, F2: P2, F3: P2, F4: P4</td></tr>
-<tr><td>1791572129.414</td><td>P2</td><td>Releasing Forks</td><td>Philosopher 2 released Fork 3</td><td>F1: P1, F2: P2, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.414</td><td>P2</td><td>Releasing Forks</td><td>Philosopher 2 released Fork 2</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.414</td><td>P2</td><td>Thinking</td><td>Philosopher 2 finished eating and returned to thinking</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.414</td><td>P2</td><td>Finished</td><td>Philosopher 2 completed both rounds</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.414</td><td>P1</td><td>Eating</td><td>Philosopher 1 acquired Fork 2 and started eating</td><td>F1: P1, F2: P1, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.8</td><td>P1</td><td>Releasing Forks</td><td>Philosopher 1 released Fork 2</td><td>F1: P1, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.8</td><td>P1</td><td>Releasing Forks</td><td>Philosopher 1 released Fork 1</td><td>F1: Free, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.8</td><td>P1</td><td>Thinking</td><td>Philosopher 1 finished eating and returned to thinking</td><td>F1: Free, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.8</td><td>P1</td><td>Finished</td><td>Philosopher 1 completed both rounds</td><td>F1: Free, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572129.8</td><td>P4</td><td>Eating</td><td>Philosopher 4 acquired Fork 1 and started eating</td><td>F1: P4, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572130.242</td><td>P4</td><td>Releasing Forks</td><td>Philosopher 4 released Fork 1</td><td>F1: Free, F2: Free, F3: Free, F4: P4</td></tr>
-<tr><td>1791572130.242</td><td>P4</td><td>Releasing Forks</td><td>Philosopher 4 released Fork 4</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-<tr><td>1791572130.242</td><td>P4</td><td>Thinking</td><td>Philosopher 4 finished eating and returned to thinking</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-<tr><td>1791572130.242</td><td>P4</td><td>Finished</td><td>Philosopher 4 completed both rounds</td><td>F1: Free, F2: Free, F3: Free, F4: Free</td></tr>
-
-</table>
+<div class="wrap"><table><thead><tr><th>#</th><th>Time</th><th>Philosopher</th><th>State</th><th>Event</th><th>Fork ownership</th></tr></thead><tbody id="rows"></tbody></table></div>
+</div>
+<script>
+const events=[{"time": 1792007461.94, "philosopher": 1, "state": "Thinking", "message": "Philosopher 1 is thinking (round 1)", "states": ["Thinking", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007461.942, "philosopher": 2, "state": "Thinking", "message": "Philosopher 2 is thinking (round 1)", "states": ["Thinking", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007461.944, "philosopher": 3, "state": "Thinking", "message": "Philosopher 3 is thinking (round 1)", "states": ["Thinking", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007461.945, "philosopher": 4, "state": "Thinking", "message": "Philosopher 4 is thinking (round 1)", "states": ["Thinking", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007462.257, "philosopher": 1, "state": "Hungry", "message": "Philosopher 1 wants to eat", "states": ["Hungry", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007462.257, "philosopher": 1, "state": "Waiting for forks", "message": "Philosopher 1 is waiting for forks", "states": ["Waiting for forks", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007462.257, "philosopher": 1, "state": "Acquiring Forks", "message": "Philosopher 1 acquired Fork 1", "states": ["Acquiring Forks", "Thinking", "Thinking", "Thinking"], "fork_owners": [1, null, null, null]}, {"time": 1792007462.257, "philosopher": 1, "state": "Eating", "message": "Philosopher 1 acquired Fork 2 and started eating", "states": ["Eating", "Thinking", "Thinking", "Thinking"], "fork_owners": [1, 1, null, null]}, {"time": 1792007462.272, "philosopher": 3, "state": "Hungry", "message": "Philosopher 3 wants to eat", "states": ["Eating", "Thinking", "Hungry", "Thinking"], "fork_owners": [1, 1, null, null]}, {"time": 1792007462.272, "philosopher": 3, "state": "Waiting for forks", "message": "Philosopher 3 is waiting for forks", "states": ["Eating", "Thinking", "Waiting for forks", "Thinking"], "fork_owners": [1, 1, null, null]}, {"time": 1792007462.272, "philosopher": 3, "state": "Acquiring Forks", "message": "Philosopher 3 acquired Fork 3", "states": ["Eating", "Thinking", "Acquiring Forks", "Thinking"], "fork_owners": [1, 1, 3, null]}, {"time": 1792007462.272, "philosopher": 3, "state": "Eating", "message": "Philosopher 3 acquired Fork 4 and started eating", "states": ["Eating", "Thinking", "Eating", "Thinking"], "fork_owners": [1, 1, 3, 3]}, {"time": 1792007462.383, "philosopher": 4, "state": "Hungry", "message": "Philosopher 4 wants to eat", "states": ["Eating", "Thinking", "Eating", "Hungry"], "fork_owners": [1, 1, 3, 3]}, {"time": 1792007462.383, "philosopher": 4, "state": "Waiting for forks", "message": "Philosopher 4 is waiting for forks", "states": ["Eating", "Thinking", "Eating", "Waiting for forks"], "fork_owners": [1, 1, 3, 3]}, {"time": 1792007462.404, "philosopher": 2, "state": "Hungry", "message": "Philosopher 2 wants to eat", "states": ["Eating", "Hungry", "Eating", "Waiting for forks"], "fork_owners": [1, 1, 3, 3]}, {"time": 1792007462.805, "philosopher": 1, "state": "Releasing Forks", "message": "Philosopher 1 released Fork 2", "states": ["Releasing Forks", "Hungry", "Eating", "Waiting for forks"], "fork_owners": [1, null, 3, 3]}, {"time": 1792007462.805, "philosopher": 1, "state": "Releasing Forks", "message": "Philosopher 1 released Fork 1", "states": ["Releasing Forks", "Hungry", "Eating", "Waiting for forks"], "fork_owners": [null, null, 3, 3]}, {"time": 1792007462.805, "philosopher": 1, "state": "Thinking", "message": "Philosopher 1 finished eating and is thinking again", "states": ["Thinking", "Hungry", "Eating", "Waiting for forks"], "fork_owners": [null, null, 3, 3]}, {"time": 1792007462.805, "philosopher": 1, "state": "Thinking", "message": "Philosopher 1 is thinking (round 2)", "states": ["Thinking", "Hungry", "Eating", "Waiting for forks"], "fork_owners": [null, null, 3, 3]}, {"time": 1792007462.805, "philosopher": 2, "state": "Waiting for forks", "message": "Philosopher 2 is waiting for forks", "states": ["Thinking", "Waiting for forks", "Eating", "Waiting for forks"], "fork_owners": [null, null, 3, 3]}, {"time": 1792007462.805, "philosopher": 2, "state": "Acquiring Forks", "message": "Philosopher 2 acquired Fork 2", "states": ["Thinking", "Acquiring Forks", "Eating", "Waiting for forks"], "fork_owners": [null, 2, 3, 3]}, {"time": 1792007462.835, "philosopher": 3, "state": "Releasing Forks", "message": "Philosopher 3 released Fork 4", "states": ["Thinking", "Acquiring Forks", "Releasing Forks", "Waiting for forks"], "fork_owners": [null, 2, 3, null]}, {"time": 1792007462.835, "philosopher": 3, "state": "Releasing Forks", "message": "Philosopher 3 released Fork 3", "states": ["Thinking", "Acquiring Forks", "Releasing Forks", "Waiting for forks"], "fork_owners": [null, 2, null, null]}, {"time": 1792007462.835, "philosopher": 3, "state": "Thinking", "message": "Philosopher 3 finished eating and is thinking again", "states": ["Thinking", "Acquiring Forks", "Thinking", "Waiting for forks"], "fork_owners": [null, 2, null, null]}, {"time": 1792007462.835, "philosopher": 3, "state": "Thinking", "message": "Philosopher 3 is thinking (round 2)", "states": ["Thinking", "Acquiring Forks", "Thinking", "Waiting for forks"], "fork_owners": [null, 2, null, null]}, {"time": 1792007462.835, "philosopher": 2, "state": "Eating", "message": "Philosopher 2 acquired Fork 3 and started eating", "states": ["Thinking", "Eating", "Thinking", "Waiting for forks"], "fork_owners": [null, 2, 2, null]}, {"time": 1792007462.835, "philosopher": 4, "state": "Acquiring Forks", "message": "Philosopher 4 acquired Fork 4", "states": ["Thinking", "Eating", "Thinking", "Acquiring Forks"], "fork_owners": [null, 2, 2, 4]}, {"time": 1792007462.835, "philosopher": 4, "state": "Eating", "message": "Philosopher 4 acquired Fork 1 and started eating", "states": ["Thinking", "Eating", "Thinking", "Eating"], "fork_owners": [4, 2, 2, 4]}, {"time": 1792007463.152, "philosopher": 2, "state": "Releasing Forks", "message": "Philosopher 2 released Fork 3", "states": ["Thinking", "Releasing Forks", "Thinking", "Eating"], "fork_owners": [4, 2, null, 4]}, {"time": 1792007463.152, "philosopher": 2, "state": "Releasing Forks", "message": "Philosopher 2 released Fork 2", "states": ["Thinking", "Releasing Forks", "Thinking", "Eating"], "fork_owners": [4, null, null, 4]}, {"time": 1792007463.152, "philosopher": 2, "state": "Thinking", "message": "Philosopher 2 finished eating and is thinking again", "states": ["Thinking", "Thinking", "Thinking", "Eating"], "fork_owners": [4, null, null, 4]}, {"time": 1792007463.152, "philosopher": 2, "state": "Thinking", "message": "Philosopher 2 is thinking (round 2)", "states": ["Thinking", "Thinking", "Thinking", "Eating"], "fork_owners": [4, null, null, 4]}, {"time": 1792007463.153, "philosopher": 4, "state": "Releasing Forks", "message": "Philosopher 4 released Fork 1", "states": ["Thinking", "Thinking", "Thinking", "Releasing Forks"], "fork_owners": [null, null, null, 4]}, {"time": 1792007463.153, "philosopher": 4, "state": "Releasing Forks", "message": "Philosopher 4 released Fork 4", "states": ["Thinking", "Thinking", "Thinking", "Releasing Forks"], "fork_owners": [null, null, null, null]}, {"time": 1792007463.153, "philosopher": 4, "state": "Thinking", "message": "Philosopher 4 finished eating and is thinking again", "states": ["Thinking", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007463.153, "philosopher": 4, "state": "Thinking", "message": "Philosopher 4 is thinking (round 2)", "states": ["Thinking", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007463.269, "philosopher": 1, "state": "Hungry", "message": "Philosopher 1 wants to eat", "states": ["Hungry", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007463.269, "philosopher": 1, "state": "Waiting for forks", "message": "Philosopher 1 is waiting for forks", "states": ["Waiting for forks", "Thinking", "Thinking", "Thinking"], "fork_owners": [null, null, null, null]}, {"time": 1792007463.269, "philosopher": 1, "state": "Acquiring Forks", "message": "Philosopher 1 acquired Fork 1", "states": ["Acquiring Forks", "Thinking", "Thinking", "Thinking"], "fork_owners": [1, null, null, null]}, {"time": 1792007463.269, "philosopher": 1, "state": "Eating", "message": "Philosopher 1 acquired Fork 2 and started eating", "states": ["Eating", "Thinking", "Thinking", "Thinking"], "fork_owners": [1, 1, null, null]}, {"time": 1792007463.292, "philosopher": 3, "state": "Hungry", "message": "Philosopher 3 wants to eat", "states": ["Eating", "Thinking", "Hungry", "Thinking"], "fork_owners": [1, 1, null, null]}, {"time": 1792007463.293, "philosopher": 3, "state": "Waiting for forks", "message": "Philosopher 3 is waiting for forks", "states": ["Eating", "Thinking", "Waiting for forks", "Thinking"], "fork_owners": [1, 1, null, null]}, {"time": 1792007463.293, "philosopher": 3, "state": "Acquiring Forks", "message": "Philosopher 3 acquired Fork 3", "states": ["Eating", "Thinking", "Acquiring Forks", "Thinking"], "fork_owners": [1, 1, 3, null]}, {"time": 1792007463.293, "philosopher": 3, "state": "Eating", "message": "Philosopher 3 acquired Fork 4 and started eating", "states": ["Eating", "Thinking", "Eating", "Thinking"], "fork_owners": [1, 1, 3, 3]}, {"time": 1792007463.388, "philosopher": 4, "state": "Hungry", "message": "Philosopher 4 wants to eat", "states": ["Eating", "Thinking", "Eating", "Hungry"], "fork_owners": [1, 1, 3, 3]}, {"time": 1792007463.388, "philosopher": 4, "state": "Waiting for forks", "message": "Philosopher 4 is waiting for forks", "states": ["Eating", "Thinking", "Eating", "Waiting for forks"], "fork_owners": [1, 1, 3, 3]}, {"time": 1792007463.416, "philosopher": 2, "state": "Hungry", "message": "Philosopher 2 wants to eat", "states": ["Eating", "Hungry", "Eating", "Waiting for forks"], "fork_owners": [1, 1, 3, 3]}, {"time": 1792007463.66, "philosopher": 3, "state": "Releasing Forks", "message": "Philosopher 3 released Fork 4", "states": ["Eating", "Hungry", "Releasing Forks", "Waiting for forks"], "fork_owners": [1, 1, 3, null]}, {"time": 1792007463.66, "philosopher": 3, "state": "Releasing Forks", "message": "Philosopher 3 released Fork 3", "states": ["Eating", "Hungry", "Releasing Forks", "Waiting for forks"], "fork_owners": [1, 1, null, null]}, {"time": 1792007463.66, "philosopher": 3, "state": "Thinking", "message": "Philosopher 3 finished eating and is thinking again", "states": ["Eating", "Hungry", "Thinking", "Waiting for forks"], "fork_owners": [1, 1, null, null]}, {"time": 1792007463.66, "philosopher": 3, "state": "Finished", "message": "Philosopher 3 completed both rounds", "states": ["Eating", "Hungry", "Finished", "Waiting for forks"], "fork_owners": [1, 1, null, null]}, {"time": 1792007463.66, "philosopher": 4, "state": "Acquiring Forks", "message": "Philosopher 4 acquired Fork 4", "states": ["Eating", "Hungry", "Finished", "Acquiring Forks"], "fork_owners": [1, 1, null, 4]}, {"time": 1792007463.66, "philosopher": 2, "state": "Waiting for forks", "message": "Philosopher 2 is waiting for forks", "states": ["Eating", "Waiting for forks", "Finished", "Acquiring Forks"], "fork_owners": [1, 1, null, 4]}, {"time": 1792007463.668, "philosopher": 1, "state": "Releasing Forks", "message": "Philosopher 1 released Fork 2", "states": ["Releasing Forks", "Waiting for forks", "Finished", "Acquiring Forks"], "fork_owners": [1, null, null, 4]}, {"time": 1792007463.668, "philosopher": 1, "state": "Releasing Forks", "message": "Philosopher 1 released Fork 1", "states": ["Releasing Forks", "Waiting for forks", "Finished", "Acquiring Forks"], "fork_owners": [null, null, null, 4]}, {"time": 1792007463.668, "philosopher": 1, "state": "Thinking", "message": "Philosopher 1 finished eating and is thinking again", "states": ["Thinking", "Waiting for forks", "Finished", "Acquiring Forks"], "fork_owners": [null, null, null, 4]}, {"time": 1792007463.668, "philosopher": 1, "state": "Finished", "message": "Philosopher 1 completed both rounds", "states": ["Finished", "Waiting for forks", "Finished", "Acquiring Forks"], "fork_owners": [null, null, null, 4]}, {"time": 1792007463.669, "philosopher": 2, "state": "Acquiring Forks", "message": "Philosopher 2 acquired Fork 2", "states": ["Finished", "Acquiring Forks", "Finished", "Acquiring Forks"], "fork_owners": [null, 2, null, 4]}, {"time": 1792007463.669, "philosopher": 2, "state": "Eating", "message": "Philosopher 2 acquired Fork 3 and started eating", "states": ["Finished", "Eating", "Finished", "Acquiring Forks"], "fork_owners": [null, 2, 2, 4]}, {"time": 1792007463.669, "philosopher": 4, "state": "Eating", "message": "Philosopher 4 acquired Fork 1 and started eating", "states": ["Finished", "Eating", "Finished", "Eating"], "fork_owners": [4, 2, 2, 4]}, {"time": 1792007463.99, "philosopher": 4, "state": "Releasing Forks", "message": "Philosopher 4 released Fork 1", "states": ["Finished", "Eating", "Finished", "Releasing Forks"], "fork_owners": [null, 2, 2, 4]}, {"time": 1792007463.99, "philosopher": 4, "state": "Releasing Forks", "message": "Philosopher 4 released Fork 4", "states": ["Finished", "Eating", "Finished", "Releasing Forks"], "fork_owners": [null, 2, 2, null]}, {"time": 1792007463.99, "philosopher": 4, "state": "Thinking", "message": "Philosopher 4 finished eating and is thinking again", "states": ["Finished", "Eating", "Finished", "Thinking"], "fork_owners": [null, 2, 2, null]}, {"time": 1792007463.99, "philosopher": 4, "state": "Finished", "message": "Philosopher 4 completed both rounds", "states": ["Finished", "Eating", "Finished", "Finished"], "fork_owners": [null, 2, 2, null]}, {"time": 1792007463.997, "philosopher": 2, "state": "Releasing Forks", "message": "Philosopher 2 released Fork 3", "states": ["Finished", "Releasing Forks", "Finished", "Finished"], "fork_owners": [null, 2, null, null]}, {"time": 1792007463.997, "philosopher": 2, "state": "Releasing Forks", "message": "Philosopher 2 released Fork 2", "states": ["Finished", "Releasing Forks", "Finished", "Finished"], "fork_owners": [null, null, null, null]}, {"time": 1792007463.997, "philosopher": 2, "state": "Thinking", "message": "Philosopher 2 finished eating and is thinking again", "states": ["Finished", "Thinking", "Finished", "Finished"], "fork_owners": [null, null, null, null]}, {"time": 1792007463.997, "philosopher": 2, "state": "Finished", "message": "Philosopher 2 completed both rounds", "states": ["Finished", "Finished", "Finished", "Finished"], "fork_owners": [null, null, null, null]}];
+document.getElementById("total").textContent=events.length;
+const pp=[{x:50,y:9},{x:87,y:50},{x:50,y:91},{x:13,y:50}];
+const fp=[{x:69,y:22},{x:79,y:68},{x:31,y:79},{x:21,y:32}];
+pp.forEach((p,i)=>{let e=document.getElementById("p"+i);e.style.left=p.x+"%";e.style.top=p.y+"%";});
+fp.forEach((p,i)=>{let e=document.getElementById("f"+i);e.style.left=p.x+"%";e.style.top=p.y+"%";});
+const rows=document.getElementById("rows");
+events.forEach((e,i)=>{let tr=document.createElement("tr");
+let owner=e.fork_owners.map((v,j)=>"F"+(j+1)+": "+(v===null?"Free":"P"+v)).join(" | ");
+[i+1,e.time,"P"+e.philosopher,e.state,e.message,owner].forEach(v=>{let td=document.createElement("td");td.textContent=v;tr.appendChild(td);});rows.appendChild(tr);});
+let index=0,timer=null;
+const slider=document.getElementById("slider");slider.max=Math.max(0,events.length-1);
+function render(){
+if(!events.length)return;
+let e=events[index];
+e.states.forEach((s,i)=>{let el=document.getElementById("p"+i);el.className="person";
+if(s==="Eating")el.classList.add("eating");
+if(s.includes("Waiting")||s==="Hungry"||s==="Acquiring Forks")el.classList.add("waiting");
+if(s==="Finished")el.classList.add("finished");
+el.querySelector(".state").textContent=s;});
+e.fork_owners.forEach((o,i)=>{let el=document.getElementById("f"+i);el.classList.toggle("owned",o!==null);el.textContent="Fork "+(i+1)+": "+(o===null?"Free":"P"+o);});
+document.getElementById("message").textContent="P"+e.philosopher+" — "+e.message;
+document.getElementById("counter").textContent=(index+1)+" / "+events.length;slider.value=index;}
+function stop(){if(timer){clearInterval(timer);timer=null;}document.getElementById("play").textContent="Play";}
+document.getElementById("play").onclick=()=>{if(timer){stop();return;}if(index>=events.length-1)index=0;document.getElementById("play").textContent="Pause";timer=setInterval(()=>{if(index>=events.length-1){stop();return;}index++;render();},800);render();};
+document.getElementById("prev").onclick=()=>{stop();index=Math.max(0,index-1);render();};
+document.getElementById("next").onclick=()=>{stop();index=Math.min(events.length-1,index+1);render();};
+slider.oninput=()=>{stop();index=Number(slider.value);render();};
+render();
+</script>
 </body>
 </html>

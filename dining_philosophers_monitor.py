@@ -1,3 +1,4 @@
+
 import threading
 import time
 import random
@@ -13,16 +14,14 @@ events = []
 condition = threading.Condition()
 
 
-def record_event(philosopher, state, message):
+def record_event(i, state, message):
     events.append({
         "time": round(time.time(), 3),
-        "philosopher": f"P{philosopher + 1}",
+        "philosopher": i + 1,
         "state": state,
-        "event": message,
-        "forks": [
-            f"F{i + 1}: {'Free' if owner is None else 'P' + str(owner + 1)}"
-            for i, owner in enumerate(fork_owners)
-        ]
+        "message": message,
+        "states": states.copy(),
+        "fork_owners": fork_owners.copy()
     })
 
 
@@ -35,228 +34,175 @@ def can_eat(i):
 def pickup_forks(i):
     with condition:
         states[i] = "Hungry"
-        record_event(i, "Hungry", f"Philosopher {i + 1} wants to eat")
+        record_event(i, "Hungry", f"Philosopher {i+1} wants to eat")
 
         while not can_eat(i):
-            record_event(
-                i, "Waiting",
-                f"Philosopher {i + 1} waits for neighboring philosophers"
-            )
+            record_event(i, "Waiting",
+                         f"Philosopher {i+1} waits for neighbors")
             condition.wait()
 
         states[i] = "Eating"
-        left_fork = i
-        right_fork = (i + 1) % N
-
-        fork_owners[left_fork] = i
-        fork_owners[right_fork] = i
-
-        record_event(
-            i, "Eating",
-            f"Philosopher {i + 1} acquired both forks and started eating"
-        )
+        left = i
+        right = (i + 1) % N
+        fork_owners[left] = i + 1
+        fork_owners[right] = i + 1
+        record_event(i, "Eating",
+                     f"Philosopher {i+1} acquired both forks and started eating")
 
 
 def putdown_forks(i):
     with condition:
         states[i] = "Releasing"
-        record_event(
-            i, "Releasing",
-            f"Philosopher {i + 1} is releasing both forks"
-        )
+        record_event(i, "Releasing",
+                     f"Philosopher {i+1} is releasing both forks")
 
         fork_owners[i] = None
         fork_owners[(i + 1) % N] = None
-
         states[i] = "Thinking"
-        record_event(
-            i, "Thinking",
-            f"Philosopher {i + 1} finished eating and released both forks"
-        )
-
+        record_event(i, "Thinking",
+                     f"Philosopher {i+1} released both forks")
         condition.notify_all()
 
 
 def philosopher(i):
-    for round_number in range(1, ROUNDS + 1):
+    for r in range(1, ROUNDS + 1):
         with condition:
             states[i] = "Thinking"
-            record_event(
-                i, "Thinking",
-                f"Philosopher {i + 1} is thinking (round {round_number})"
-            )
+            record_event(i, "Thinking",
+                         f"Philosopher {i+1} is thinking (round {r})")
 
         time.sleep(random.uniform(0.1, 0.4))
-
         pickup_forks(i)
         time.sleep(random.uniform(0.2, 0.5))
         putdown_forks(i)
 
     with condition:
         states[i] = "Finished"
-        record_event(
-            i, "Finished",
-            f"Philosopher {i + 1} completed both rounds"
-        )
+        record_event(i, "Finished",
+                     f"Philosopher {i+1} completed both rounds")
         condition.notify_all()
 
 
 def generate_html():
-    rows = ""
-
-    for event in events:
-        forks = " | ".join(event["forks"])
-
-        rows += (
-            "<tr>"
-            f"<td>{event['time']}</td>"
-            f"<td>{html.escape(event['philosopher'])}</td>"
-            f"<td>{html.escape(event['state'])}</td>"
-            f"<td>{html.escape(event['event'])}</td>"
-            f"<td>{html.escape(forks)}</td>"
-            "</tr>"
-        )
-
-    philosopher_summary = ""
-
-    for i in range(N):
-        philosopher_summary += (
-            f"<li>Philosopher {i + 1}: "
-            f"{html.escape(states[i])}</li>"
-        )
-
-    page = f"""<!DOCTYPE html>
-<html>
+    trace = json.dumps(events).replace("</", "<\\/")
+    page = r"""<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Dining Philosophers - Monitor</title>
 <style>
-body {{
-    font-family: Arial, sans-serif;
-    margin: 25px;
-    background: #f4f6f8;
-}}
-h1, h2 {{
-    color: #243b53;
-}}
-.summary {{
-    background: white;
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
-}}
-.table-container {{
-    overflow-x: auto;
-    background: white;
-}}
-table {{
-    border-collapse: collapse;
-    width: 100%;
-    font-size: 13px;
-}}
-th, td {{
-    border: 1px solid #d5dce3;
-    padding: 9px;
-    text-align: left;
-}}
-th {{
-    background: #243b53;
-    color: white;
-}}
-tr:nth-child(even) {{
-    background: #eef3f7;
-}}
+body{font-family:Arial;background:#f2f5fa;color:#202b3c;margin:20px}
+h1,h2{color:#243b53}
+.panel{background:white;padding:16px;margin:14px 0;border-radius:12px;box-shadow:0 2px 8px #0001}
+.stage{position:relative;max-width:700px;height:440px;margin:auto}
+.tabletop{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:220px;height:220px;border-radius:50%;background:#ead9ba;border:9px solid #9d7b52;display:flex;align-items:center;justify-content:center;text-align:center;font-weight:bold}
+.person{position:absolute;transform:translate(-50%,-50%);width:130px;padding:10px 5px;text-align:center;border:2px solid #aab4c3;border-radius:12px;background:white;box-sizing:border-box}
+.state{font-size:12px;margin-top:5px}
+.eating{background:#d9f7e5;border-color:#198754}
+.waiting{background:#fff0c2;border-color:#d59a21}
+.finished{background:#e8edf3;border-color:#718096}
+.fork{position:absolute;transform:translate(-50%,-50%);background:white;border:1px solid #8996a8;border-radius:20px;padding:7px;font-size:12px;white-space:nowrap}
+.owned{background:#d7e8ff;border-color:#2670bd;font-weight:bold}
+button{background:#243b53;color:white;border:0;border-radius:6px;padding:9px 12px;margin:3px;cursor:pointer}
+.controls{display:flex;gap:5px;align-items:center;flex-wrap:wrap}
+input[type=range]{flex:1;min-width:150px}
+table{border-collapse:collapse;width:100%;background:white;font-size:13px}
+th,td{border:1px solid #d5dce6;padding:8px;text-align:left}
+th{background:#243b53;color:white}
+tr:nth-child(even){background:#edf2f8}
+.wrap{overflow-x:auto}
 </style>
 </head>
 <body>
-<h1>Dining Philosophers — Monitor Solution</h1>
-
-<div class="summary">
-<h2>Simulation Summary</h2>
-<p><b>Philosophers:</b> {N}</p>
-<p><b>Forks:</b> {N}</p>
+<h1>Dining Philosophers - Monitor Solution</h1>
+<div class="panel">
+<p><b>Philosophers:</b> 4 | <b>Forks:</b> 4 | <b>Rounds:</b> 2 each</p>
 <p><b>Synchronization:</b> Monitor using threading.Condition</p>
-<p><b>Rounds per philosopher:</b> {ROUNDS}</p>
-<p><b>Total events:</b> {len(events)}</p>
-
-<h2>Final Philosopher States</h2>
-<ul>{philosopher_summary}</ul>
-
-<h2>Fork Ownership at Completion</h2>
-<p>{' | '.join(
-    f'F{i + 1}: {"Free" if owner is None else "P" + str(owner + 1)}'
-    for i, owner in enumerate(fork_owners)
-)}</p>
+<p><b>Actual recorded events:</b> <span id="total"></span></p>
 </div>
-
+<div class="panel">
+<h2>Execution Replay</h2>
+<div class="stage">
+<div class="tabletop">Dining<br>Table</div>
+<div class="person" id="p0">Philosopher 1<div class="state"></div></div>
+<div class="person" id="p1">Philosopher 2<div class="state"></div></div>
+<div class="person" id="p2">Philosopher 3<div class="state"></div></div>
+<div class="person" id="p3">Philosopher 4<div class="state"></div></div>
+<div class="fork" id="f0">Fork 1</div><div class="fork" id="f1">Fork 2</div>
+<div class="fork" id="f2">Fork 3</div><div class="fork" id="f3">Fork 4</div>
+</div>
+<div class="controls">
+<button id="play">Play</button><button id="prev">Previous</button>
+<button id="next">Next</button><input id="slider" type="range" min="0" value="0">
+<span id="counter"></span>
+</div>
+<p id="message"></p>
+</div>
+<div class="panel">
 <h2>Actual Execution Timeline</h2>
-<p>Fork ownership is recorded at each event. Free means the fork is available.</p>
-
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>Time</th>
-<th>Philosopher</th>
-<th>State</th>
-<th>Event</th>
-<th>Fork Ownership</th>
-</tr>
-</thead>
-<tbody>
-{rows}
-</tbody>
-</table>
+<div class="wrap"><table><thead><tr><th>#</th><th>Time</th><th>Philosopher</th><th>State</th><th>Event</th><th>Fork ownership</th></tr></thead><tbody id="rows"></tbody></table></div>
 </div>
+<script>
+const events=__TRACE__;
+document.getElementById("total").textContent=events.length;
+const pp=[{x:50,y:9},{x:87,y:50},{x:50,y:91},{x:13,y:50}];
+const fp=[{x:69,y:22},{x:79,y:68},{x:31,y:79},{x:21,y:32}];
+pp.forEach((p,i)=>{let e=document.getElementById("p"+i);e.style.left=p.x+"%";e.style.top=p.y+"%";});
+fp.forEach((p,i)=>{let e=document.getElementById("f"+i);e.style.left=p.x+"%";e.style.top=p.y+"%";});
+const rows=document.getElementById("rows");
+events.forEach((e,i)=>{let tr=document.createElement("tr");
+let owner=e.fork_owners.map((v,j)=>"F"+(j+1)+": "+(v===null?"Free":"P"+v)).join(" | ");
+[i+1,e.time,"P"+e.philosopher,e.state,e.message,owner].forEach(v=>{let td=document.createElement("td");td.textContent=v;tr.appendChild(td);});rows.appendChild(tr);});
+let index=0,timer=null;
+const slider=document.getElementById("slider");slider.max=Math.max(0,events.length-1);
+function render(){
+if(!events.length)return;
+let e=events[index];
+e.states.forEach((s,i)=>{let el=document.getElementById("p"+i);el.className="person";
+if(s==="Eating")el.classList.add("eating");
+if(s==="Hungry"||s==="Waiting")el.classList.add("waiting");
+if(s==="Finished")el.classList.add("finished");
+el.querySelector(".state").textContent=s;});
+e.fork_owners.forEach((o,i)=>{let el=document.getElementById("f"+i);el.classList.toggle("owned",o!==null);el.textContent="Fork "+(i+1)+": "+(o===null?"Free":"P"+o);});
+document.getElementById("message").textContent="P"+e.philosopher+" — "+e.message;
+document.getElementById("counter").textContent=(index+1)+" / "+events.length;slider.value=index;}
+function stop(){if(timer){clearInterval(timer);timer=null;}document.getElementById("play").textContent="Play";}
+document.getElementById("play").onclick=()=>{if(timer){stop();return;}if(index>=events.length-1)index=0;document.getElementById("play").textContent="Pause";timer=setInterval(()=>{if(index>=events.length-1){stop();return;}index++;render();},800);render();};
+document.getElementById("prev").onclick=()=>{stop();index=Math.max(0,index-1);render();};
+document.getElementById("next").onclick=()=>{stop();index=Math.min(events.length-1,index+1);render();};
+slider.oninput=()=>{stop();index=Number(slider.value);render();};
+render();
+</script>
 </body>
-</html>
-"""
-
-    with open("dining_philosophers_monitor.html", "w", encoding="utf-8") as file:
-        file.write(page)
+</html>"""
+    page = page.replace("__TRACE__", trace)
+    with open("dining_philosophers_monitor.html", "w", encoding="utf-8") as f:
+        f.write(page)
 
 
 def main():
-    threads = []
-
-    for i in range(N):
-        thread = threading.Thread(target=philosopher, args=(i,))
-        threads.append(thread)
-        thread.start()
-
-    for thread in threads:
-        thread.join()
+    threads = [threading.Thread(target=philosopher, args=(i,)) for i in range(N)]
+    for t in threads:
+        t.start()
+    for t in threads:
+        t.join()
 
     with condition:
         assert all(owner is None for owner in fork_owners)
         assert all(state == "Finished" for state in states)
+        assert sum(1 for event in events if event["state"] == "Eating") == N * ROUNDS
+        trace = events.copy()
 
-        eating_events = [
-            event for event in events if event["state"] == "Eating"
-        ]
-
-        assert len(eating_events) == N * ROUNDS
-
-        print("Dining Philosophers Monitor execution completed.")
-        print("Number of philosophers:", N)
-        print("Eating rounds per philosopher:", ROUNDS)
-        print("Total events recorded:", len(events))
-        print("All forks released: PASSED")
-        print("Synchronization checks: PASSED")
-
-        with open(
-            "dining_philosophers_monitor_events.json",
-            "w",
-            encoding="utf-8"
-        ) as file:
-            json.dump(events, file, indent=4)
+    with open("dining_philosophers_monitor_events.json", "w", encoding="utf-8") as f:
+        json.dump(trace, f, indent=2)
 
     generate_html()
-
-    print("\nFiles generated successfully:")
-    print("1. dining_philosophers_monitor_events.json")
-    print("2. dining_philosophers_monitor.html")
-    print("\nOpen dining_philosophers_monitor.html in your browser.")
+    print("Monitor execution completed.")
+    print("Events recorded:", len(trace))
+    print("All forks released: PASSED")
+    print("Synchronization checks: PASSED")
+    print("Generated dining_philosophers_monitor.html")
 
 
 if __name__ == "__main__":
